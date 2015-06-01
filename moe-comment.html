@@ -20,6 +20,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         box-sizing: border-box;
         background-color: var(--comment-color);
         padding: 0 20px 0 20px;
+        margin: 0 0 5px 0;
     }
     #comment-title {
         color: var(--title-color);
@@ -29,13 +30,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         color: var(--name-color);
         font-weight: bold;
     }
-    #identity {
-        
-    }
+    #identity {}
     #serial-number {
         color: var(--anchor-color);
     }
-    #image {        
+    #image {
         float: left;
         clear: none;
         line-height: 0;
@@ -52,7 +51,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     .btn-sm::shadow {
         min-width: 0px;
     }
-    
     .btn-sm::shadow .content {
         padding: 0.35em 0.5em;
     }
@@ -68,7 +66,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         @apply(--layout-flex);
         @apply(--layout-vertical);
     }
-    
     [end] {
         @apply(--layout-end-justified);
         @apply(--layout-horizontal);
@@ -83,7 +80,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                 <paper-button id="serial-number" class="btn-sm">{{_serialNumber(number,serial)}}</paper-button>
             </div>
             <div>
-                <a id="image-anchor" href="#"><iron-image id="image" src="{{image}}"></iron-image></a>
+                <a id="image-anchor" href="#">
+                    <iron-image id="image" src="{{image}}"></iron-image>
+                </a>
                 <moe-paragraph id="paragraph">
                     <content></content>
                 </moe-paragraph>
@@ -200,7 +199,7 @@ Polymer({
         });
     },
     _serialNumber: function(number, serial) {
-        return number + serial
+        return number + serial;
     }
 
 });
