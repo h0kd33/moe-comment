@@ -140,7 +140,11 @@ Polymer({
             type: String,
             value: 'No.'
         },
-        selected: false
+        selected: {
+            type: Boolean,
+            value: false,
+            reflectToAttribute: true
+        }
     },
 
     // Element Lifecycle
@@ -207,6 +211,5 @@ Polymer({
     _serialNumber: function(number, serial) {
         return number + serial;
     }
-
 });
 </script>
