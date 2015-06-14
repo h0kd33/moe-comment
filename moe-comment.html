@@ -22,20 +22,21 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         background-color: var(--comment-color);
         padding: 0 20px 0 20px;
         margin: 0 0 5px 0;
+        color: var(--font-color);
     }
     :host[selected] {
         outline: 3px solid blue;
     }
-    #comment-title {
+    #commentTitle[active] {
         color: var(--title-color);
         font-weight: bold;
     }
-    #user-name {
+    #userName[active] {
         color: var(--name-color);
         font-weight: bold;
     }
     #identity {}
-    #serial-number {
+    #serialNumber {
         color: var(--anchor-color);
     }
     #image {
@@ -45,7 +46,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         font-size: 0;
         margin: 0 15px 0 0;
     }
-    #image-anchor {
+    #imageAnchor {
         line-height: 0;
         font-size: 0;
     }
@@ -78,13 +79,13 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     <template>
         <div layout>
             <div>
-                <span id="comment-title">{{commenttitle}}</span>
-                <span id="user-name">{{username}}</span>
+                <span id="commentTitle">{{commenttitle}}</span>
+                <span id="userName">{{username}}</span>
                 <span id="identity">{{identity}}</span>
-                <paper-button id="serial-number" class="btn-sm">{{_serialNumber(number,serial)}}</paper-button>
+                <paper-button id="serialNumber" class="btn-sm"><span>NO.</span>{{serial}}</paper-button>
             </div>
             <div>
-                <a id="image-anchor" href="#">
+                <a id="imageAnchor" href="#">
                     <iron-image id="image" src="{{image}}"></iron-image>
                 </a>
                 <moe-paragraph id="paragraph">
@@ -104,41 +105,16 @@ Polymer({
     is: 'moe-comment',
 
     properties: {
-
-        /**
-         * `fancy` indicates that the element should don a monocle and tophat,
-         * while checking its pocket watch.
-         */
-        fancy: Boolean,
-
-        /**
-         * Describes the author of the element, but is really just an excuse to
-         * show off JSDoc annotations.
-         *
-         * @type {{name: string, image: string}}
-         */
-        author: {
-            type: Object,
-            // Use `value` to provides a default value for a property, by setting it
-            // on your element's prototype.
-            //
-            // If you provide a function, as we do here, Polymer will call that
-            // _per element instance_.
-            //
-            // We do that to ensure that each element gets its own copy of the
-            // value, rather than having it shared across all instances (via the
-            // prototype).
-            value: function() {
-                return {
-                    name: 'Dimitri Glazkov',
-                    image: 'http://addyosmani.com/blog/wp-content/uploads/2013/04/unicorn.jpg',
-                };
-            }
-        },        
-        serial: String,
-        number: {
+      
+        username: {
             type: String,
-            value: 'No.'
+            value: '無名'
+        },
+        serial: {
+            type: Number
+        },
+        identity: {
+            type: String
         },
         selected: {
             type: Boolean,
@@ -150,66 +126,17 @@ Polymer({
     // Element Lifecycle
 
     ready: function() {
-        // `ready` is called after all elements have been configured, but
-        // propagates bottom-up. This element's children are ready, but parents
-        // are not.
-        //
-        // This is the point where you should make modifications to the DOM (when
-        // necessary), or kick off any processes the element wants to perform.
+
     },
 
     attached: function() {
-        // `attached` fires once the element and its parents have been inserted
-        // into a document.
-        //
-        // This is a good place to perform any work related to your element's
-        // visual state or active behavior (measuring sizes, beginning animations,
-        // loading resources, etc).
 
         // 臨時 用來轉換 plaintext -> HTML  
         this.$$("#paragraph").innerHTML = this.$$("#paragraph").children[0].innerText;        
     },
 
     detached: function() {
-        // The analog to `attached`, `detached` fires when the element has been
-        // removed from a document.
-        //
-        // Use this to clean up anything you did in `attached`.
-    },
-
-    // Element Behavior
-
-    /**
-     * The `moe-comment-lasers` event is fired whenever `fireLasers` is called.
-     *
-     * @event moe-comment-lasers
-     * @detail {{sound: String}}
-     */
-
-    /**
-     * Sometimes it's just nice to say hi.
-     *
-     * @param {string} greeting A positive greeting.
-     * @return {string} The full greeting.
-     */
-    sayHello: function(greeting) {
-        var response = greeting || 'Hello World!';
-        return 'moe-comment says, ' + response;
-    },
-
-    /**
-     * Attempts to destroy this element's enemies with an any beam of light!
-     *
-     * Or, at least, dispatches an event in the vain hope that someone else will
-     * do the zapping.
-     */
-    fireLasers: function() {
-        this.fire('moe-comment-lasers', {
-            sound: 'Pew pew!'
-        });
-    },
-    _serialNumber: function(number, serial) {
-        return number + serial;
+     
     }
 });
 </script>
