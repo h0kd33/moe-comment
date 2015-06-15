@@ -52,6 +52,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     }
     #paragraph {
         display: block;
+        color: var(--moe-comment-font-size);
     }
     .btn-sm::shadow {
         min-width: 0px;
@@ -66,18 +67,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     .btn-vote::shadow {
         background-color: var(--form-color);
     }
-    /* Attribute */
-    [layout] {
-        @apply(--layout-flex);
-        @apply(--layout-vertical);
-    }
-    [end] {
-        @apply(--layout-end-justified);
-        @apply(--layout-horizontal);
-    }
+
     </style>
     <template>
-        <div layout>
+        <div class="layout vertical">
             <div>
                 <span id="commentTitle">{{commenttitle}}</span>
                 <span id="userName">{{username}}</span>
@@ -86,14 +79,14 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             </div>
             <div>
                 <a id="imageAnchor" href="#">
-                    <iron-image id="image" src="{{image}}"></iron-image>
+                    <!-- <iron-image preload preventLoad id="image" placeholder="../img/image.jpg" src="{{image}}"></iron-image> -->
                 </a>
                 <moe-paragraph id="paragraph">
                     <content></content>
                 </moe-paragraph>
                 <!-- <moe-push-list></moe-push-list> -->
             </div>
-            <div end>
+            <div class="layout horizontal end-justified">
                 <paper-button class="btn-sm btn-vote">+1</paper-button>
             </div>
         </div>
