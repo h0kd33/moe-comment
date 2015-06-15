@@ -14,21 +14,27 @@
         margin: 0 0 5px 0;
         color: var(--font-color);
     }
+    
     :host[selected] {
         outline: 3px solid blue;
     }
+    
     #commentTitle[active] {
         color: var(--title-color);
         font-weight: bold;
     }
+    
     #userName[active] {
         color: var(--name-color);
         font-weight: bold;
     }
+    
     #identity {}
+    
     #serialNumber {
         color: var(--anchor-color);
     }
+    
     #image {
         float: left;
         clear: none;
@@ -36,28 +42,33 @@
         font-size: 0;
         margin: 0 15px 0 0;
     }
+    
     #imageAnchor {
         line-height: 0;
         font-size: 0;
     }
+    
     #paragraph {
         display: block;
         color: var(--moe-comment-font-size);
     }
+    
     .btn-sm::shadow {
         min-width: 0px;
     }
+    
     .btn-sm::shadow .content {
         padding: 0.35em 0.5em;
     }
+    
     .btn-vote {
         color: #444;
         margin: -15px -15px 5px 0;
     }
+    
     .btn-vote::shadow {
         background-color: var(--form-color);
     }
-
     </style>
     <template>
         <div class="layout vertical">
@@ -88,7 +99,7 @@ Polymer({
     is: 'moe-comment',
 
     properties: {
-      
+
         username: {
             type: String,
             value: '無名'
@@ -108,7 +119,6 @@ Polymer({
             type: String
         }
     },
-
     // Element Lifecycle
 
     ready: function() {
@@ -118,7 +128,7 @@ Polymer({
     attached: function() {
 
         // 臨時 用來轉換 plaintext -> HTML  
-        this.$$("#paragraph").innerHTML = this.$$("#paragraph").children[0].innerText;        
+        this.$.paragraph.innerHTML = this.$.paragraph.children[0].innerText;
     }
 });
 </script>
