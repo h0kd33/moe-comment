@@ -7,16 +7,22 @@
 <dom-module id="moe-comment">
     <style>
     :host {
-        display: table;
         box-sizing: border-box;
-        background-color: var(--comment-color);
-        padding: 0 20px 0 20px;
-        margin: 0 0 5px 0;
         color: var(--font-color);
+        @apply(--layout);
+        @apply(--layout-vertical);
     }
     
     :host[selected] {
         outline: 3px solid blue;
+    }
+    
+    #container {
+        box-sizing: border-box;
+        display: table;
+        background-color: var(--comment-color);
+        padding: 0 20px 0 20px;
+        margin: 0 0 5px 0;
     }
     
     #commentTitle[active] {
@@ -43,11 +49,6 @@
         margin: 0 15px 0 0;
     }
     
-    #imageAnchor {
-        line-height: 0;
-        font-size: 0;
-    }
-    
     #paragraph {
         display: block;
         color: var(--moe-comment-font-size);
@@ -71,20 +72,16 @@
     }
     </style>
     <template>
-        <div class="layout vertical">
+        <div id="container">
             <div>
-                <span id="commentTitle">[[commenttitle]]</span>
-                <span id="userName">[[username]]</span>
-                <span id="identity">[[identity]]</span>
-                <paper-button id="serialNumber" class="btn-sm"><span>NO.</span>[[serial]]</paper-button>
+                <span id="commentTitle">[[commentData.commentTitle]]</span>
+                <span id="userName">[[commentData.username]]</span>
+                <span id="identity">[[commentData.identity]]</span>
+                <paper-button id="serialNumber" class="btn-sm"><span>NO.</span>[[commentData.serial]]</paper-button>
             </div>
             <div>
-                <a id="imageAnchor" href="#">
-                    <!-- <iron-image preload preventLoad id="image" placeholder="../img/image.jpg" src="{{image}}"></iron-image> -->
-                </a>
-                <moe-paragraph id="paragraph">
-                    <content></content>
-                </moe-paragraph>
+                <iron-image preload preventLoad id="image" placeholder="" src="[[commentData.imgsrc}}"></iron-image>
+                <moe-paragraph id="paragraph">[[injectHTML]]</moe-paragraph>
                 <!-- <moe-push-list></moe-push-list> -->
             </div>
             <div class="layout horizontal end-justified">
@@ -100,35 +97,20 @@ Polymer({
 
     properties: {
 
-        username: {
-            type: String,
-            value: '無名'
-        },
-        serial: {
-            type: Number
-        },
-        identity: {
-            type: String
-        },
         selected: {
             type: Boolean,
             value: false,
             reflectToAttribute: true
         },
-        commenttitle: {
-            type: String
+        commentData: {
+            type: Object
+        },
+        injectHTML: {
+            computed: "_injectHTML(commentData.content)"
         }
     },
-    // Element Lifecycle
-
-    ready: function() {
-
-    },
-
-    attached: function() {
-
-        // 臨時 用來轉換 plaintext -> HTML  
-        this.$.paragraph.innerHTML = this.$.paragraph.children[0].innerText;
+    _injectHTML: function(e) {
+        this.$.paragraph.innerHTML = e;
     }
 });
 </script>
