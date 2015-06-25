@@ -2,6 +2,7 @@
 <link rel="import" href="../bower_components/paper-button/paper-button.html">
 <link rel="import" href="../bower_components/iron-image/iron-image.html">
 <link rel="import" href="../moe-style/moe-style.html">
+<link rel="import" href="../moe-utility-behavior/moe-utility-behavior.html">
 <link rel="import" href="../moe-paragraph/moe-paragraph.html">
 <!-- <link rel="import" href="../moe-push-list/moe-push-list.html"> -->
 <dom-module id="moe-comment">
@@ -21,7 +22,7 @@
         box-sizing: border-box;
         display: table;
         background-color: var(--comment-color);
-        padding: 0 20px 0 20px;
+        padding: 3px 20px 3px 20px;
         margin: 0 0 5px 0;
     }
     
@@ -85,7 +86,7 @@
                 <!-- <moe-push-list></moe-push-list> -->
             </div>
             <div class="layout horizontal end-justified">
-                <paper-button class="btn-sm btn-vote">+1</paper-button>
+                <paper-button id="voteBtn" moePreventSelect class="btn-sm btn-vote">+1</paper-button>
             </div>
         </div>
     </template>
@@ -94,7 +95,9 @@
 Polymer({
 
     is: 'moe-comment',
-
+    behaviors: [
+        MoeUtilityBehavior
+    ],
     properties: {
 
         selected: {
@@ -111,6 +114,16 @@ Polymer({
     },
     _injectHTML: function(e) {
         this.$.paragraph.innerHTML = e;
+    },
+    // 將 大寫 ID 都用 span.idCap 包起來
+    _wrapCaps: function() {        
+        var text = this.$.identity.innerText;
+        for (i = 0; i < text.length; i++) {
+            if (text[i].charCodeAt(text[i]) >= 65 && text[i].charCodeAt(text[i]) <= 90) ;
+        }
+    },
+    ready: function() {
+        
     }
 });
 </script>
